@@ -33,7 +33,7 @@ public struct PeavyOptions {
     
     public init(
         endpoint: URL,
-        logLevel: LogLevel,
+        logLevel: LogLevel = .info,
         enableCrashReporting: Bool = true,
         pushInterval: TimeInterval = 30,
         printToStdout: Bool = false,
