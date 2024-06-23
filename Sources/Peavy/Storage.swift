@@ -40,7 +40,7 @@ internal class Storage {
         await file.endCurrent(to: compactFile)
     }
     
-    func eachRolled(_ each: @escaping (URL) async -> Void) async {
+    func eachRolled(_ each: @escaping (URL) async -> Bool) async {
         await compactFile.forInEnded(each)
     }
     

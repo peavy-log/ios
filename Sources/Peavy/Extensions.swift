@@ -14,9 +14,12 @@ extension UIDevice {
 }
 
 extension Sequence {
-    func asyncEach(_ closure: (Element) async throws -> Void) async rethrows {
+    func asyncEach(_ closure: (Element) async throws -> Bool) async rethrows {
         for element in self {
-            try await closure(element)
+            let cont = try await closure(element)
+            if !cont {
+                break
+            }
         }
     }
 }

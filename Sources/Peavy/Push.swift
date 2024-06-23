@@ -28,13 +28,17 @@ internal class Push {
     
     private func push() async throws {
         await storage.rollCurrent()
+        var errorCount = 0
         await storage.eachRolled { fileUrl in
             do {
                 try await self.pushFile(fileUrl)
                 try FileManager.default.removeItem(at: fileUrl)
+                errorCount = 0
             } catch {
                 Debug.warn("\(error.localizedDescription)")
+                errorCount += 1
             }
+            return errorCount < 3
         }
     }
     
@@ -43,6 +47,7 @@ internal class Push {
         var req = URLRequest(url: Peavy.options.endpoint,
                              cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
                              timeoutInterval: 30)
+        req.httpMethod = "POST"
         req.setValue("application/ndjson", forHTTPHeaderField: "Content-Type")
         req.setValue("gzip", forHTTPHeaderField: "Content-Encoding")
         let (data, resp) = try await URLSession.shared.upload(for: req, fromFile: url)

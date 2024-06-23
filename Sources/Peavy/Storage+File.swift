@@ -75,7 +75,7 @@ internal actor CompactStorageFile {
         }
     }
     
-    func forInEnded(_ each: @escaping (URL) async -> Void) async {
+    func forInEnded(_ each: @escaping (URL) async -> Bool) async {
         await all().asyncEach(each)
     }
 }
