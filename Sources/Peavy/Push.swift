@@ -27,6 +27,7 @@ internal class Push {
     }
     
     private func push() async throws {
+        await storage.rollCurrent()
         await storage.eachRolled { fileUrl in
             do {
                 try await self.pushFile(fileUrl)
