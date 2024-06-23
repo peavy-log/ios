@@ -75,8 +75,8 @@ internal actor CompactStorageFile {
         }
     }
     
-    func forInEnded(_ each: @escaping (URL) -> Void) {
-        all().forEach(each)
+    func forInEnded(_ each: @escaping (URL) async -> Void) async {
+        await all().asyncEach(each)
     }
 }
 
@@ -147,6 +147,8 @@ internal actor StorageFile {
     func endCurrent(to: CompactStorageFile) async {
         do {
             let data = try Data(contentsOf: current())
+            guard !data.isEmpty else { return }
+
             try await to.writeRolled(data)
             try manager.removeItem(at: current())
         } catch {

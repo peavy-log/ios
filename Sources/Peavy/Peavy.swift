@@ -9,7 +9,8 @@ public class Peavy {
         self.options = options
         self.storage = try Storage()
         self.logger = Logger(storage)
-        
+        self.push = Push(storage)
+
         setupCrashReporting()
         
         Debug.log("Peavy initialised")
@@ -29,6 +30,7 @@ public class Peavy {
     }
 
     internal let logger: Logger
+    internal let push: Push
     private let storage: Storage
     internal var crashReporter: PLCrashReporter?
 

@@ -35,6 +35,14 @@ internal class Storage {
         Debug.log("Stored \(entry) to buffer")
     }
     
+    func rollCurrent() async {
+        await file.endCurrent(to: compactFile)
+    }
+    
+    func eachRolled(_ each: @escaping (URL) async -> Void) async {
+        await compactFile.forInEnded(each)
+    }
+    
     private func flusher() {
         Task(priority: .background) {
             while (true) {

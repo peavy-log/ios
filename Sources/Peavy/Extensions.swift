@@ -12,3 +12,11 @@ extension UIDevice {
         return identifier
     }
 }
+
+extension Sequence {
+    func asyncEach(_ closure: (Element) async throws -> Void) async rethrows {
+        for element in self {
+            try await closure(element)
+        }
+    }
+}
