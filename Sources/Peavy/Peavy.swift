@@ -2,6 +2,8 @@ import Foundation
 
 public class Peavy {
     private init(_ options: PeavyOptions) throws {
+        Debug.enabled = options.debug
+
         self.options = options
         self.storage = try Storage()
         self.logger = Logger(storage)
