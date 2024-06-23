@@ -9,6 +9,8 @@ internal class Push {
     
     init(_ storage: Storage) {
         self.storage = storage
+        
+        pusher()
     }
     
     private func pusher() {
