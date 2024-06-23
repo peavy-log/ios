@@ -7,17 +7,24 @@ internal class Logger {
     internal var meta: Labels = [:]
 
     private lazy var labels: Labels = {
-        [
+        var dict: Labels = [
             "platform": "ios",
             "platform-version": UIDevice.current.systemVersion,
-            "app-id": Bundle.main.bundleIdentifier,
-            "app-version": Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
-            "app-version-code": Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String,
             "device-model": UIDevice.current.model,
-            "device-language": Locale.current.identifier,
-            "device-screen-w": UIScreen.main.bounds.width,
-            "device-screen-h": UIScreen.main.bounds.height,
+            "device-language": Locale.current.identifier.replacingOccurrences(of: "_", with: "-"),
+            "device-screen-w": Int(UIScreen.main.bounds.width.rounded()),
+            "device-screen-h": Int(UIScreen.main.bounds.height.rounded()),
         ]
+        if let id = Bundle.main.bundleIdentifier {
+            dict["app-id"] = id
+        }
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            dict["app-version"] = version
+        }
+        if let code = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+            dict["app-version-code"] = code
+        }
+        return dict
     }()
 
     init(_ storage: Storage) {
