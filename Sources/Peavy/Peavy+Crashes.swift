@@ -60,6 +60,10 @@ internal extension Peavy {
     }
     
     private func isDebuggerAttached() -> Bool {
+        #if DEBUG
+        return true
+        #endif
+
         #if !TARGET_OS_IPHONE
         return false
         #endif
