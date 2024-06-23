@@ -10,7 +10,7 @@ internal class Logger {
         var dict: Labels = [
             "platform": "ios",
             "platform-version": UIDevice.current.systemVersion,
-            "device-model": UIDevice.current.model,
+            "device-model": UIDevice.current.modelName,
             "device-language": Locale.current.identifier.replacingOccurrences(of: "_", with: "-"),
             "device-screen-w": Int(UIScreen.main.bounds.width.rounded()),
             "device-screen-h": Int(UIScreen.main.bounds.height.rounded()),
