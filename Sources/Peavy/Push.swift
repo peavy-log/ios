@@ -36,6 +36,7 @@ internal class Push {
     }
     
     private func pushFile(_ url: URL) async throws {
+        Debug.log("Pushing file \(url.lastPathComponent)")
         var req = URLRequest(url: Peavy.options.endpoint,
                              cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
                              timeoutInterval: 30)
@@ -50,5 +51,6 @@ internal class Push {
             let body = String(data: data, encoding: .utf8) ?? "<no body>"
             throw PushError(localizedDescription: "Push error response: \(response.statusCode)\n\(body)")
         }
+        Debug.log("Pushed file \(url.lastPathComponent)")
     }
 }
