@@ -1,11 +1,7 @@
 import Foundation
 
-struct VerbosityError: Error {
-    
-}
-
-enum LogLevel: RawRepresentable, Comparable {
-    init?(rawValue: Int) {
+public enum LogLevel: RawRepresentable, Comparable {
+    public init?(rawValue: Int) {
         switch rawValue {
         case 1: self = .trace
         case 2: self = .debug
@@ -22,7 +18,7 @@ enum LogLevel: RawRepresentable, Comparable {
     case warning
     case error
     
-    var rawValue: Int {
+    public var rawValue: Int {
         switch self {
         case .trace: 1
         case .debug: 2
@@ -32,7 +28,7 @@ enum LogLevel: RawRepresentable, Comparable {
         }
     }
     
-    var stringValue: String {
+    public var stringValue: String {
         switch self {
         case .trace: "trace"
         case .debug: "debug"

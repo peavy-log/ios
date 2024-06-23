@@ -1,15 +1,15 @@
 import Foundation
 
 extension Peavy {
-    static func setMeta(_ map: Labels) {
+    public static func setMeta(_ map: Labels) {
         instance.logger.meta.merge(map, uniquingKeysWith: { $1 })
     }
     
-    static func clearMeta() {
+    public static func clearMeta() {
         instance.logger.meta.removeAll()
     }
 
-    static func t(_ message: @autoclosure () -> String, _ error: Error? = nil) {
+    public static func t(_ message: @autoclosure () -> String, _ error: Error? = nil) {
         if instance.options.logLevel >= .trace {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
@@ -20,7 +20,7 @@ extension Peavy {
         }
     }
     
-    static func d(_ message: @autoclosure () -> String, _ error: Error? = nil) {
+    public static func d(_ message: @autoclosure () -> String, _ error: Error? = nil) {
         if instance.options.logLevel >= .debug {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
@@ -31,7 +31,7 @@ extension Peavy {
         }
     }
     
-    static func i(_ message: @autoclosure () -> String, _ error: Error? = nil) {
+    public static func i(_ message: @autoclosure () -> String, _ error: Error? = nil) {
         if instance.options.logLevel >= .info {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
@@ -42,7 +42,7 @@ extension Peavy {
         }
     }
     
-    static func w(_ message: @autoclosure () -> String, _ error: Error? = nil) {
+    public static func w(_ message: @autoclosure () -> String, _ error: Error? = nil) {
         if instance.options.logLevel >= .warning {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
@@ -53,7 +53,7 @@ extension Peavy {
         }
     }
     
-    static func e(_ message: @autoclosure () -> String, _ error: Error? = nil) {
+    public static func e(_ message: @autoclosure () -> String, _ error: Error? = nil) {
         if instance.options.logLevel >= .error {
             instance.logger.log(LogEntry(
                 timestamp: Date(),

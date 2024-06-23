@@ -1,14 +1,14 @@
 import Foundation
 import DataCompression
 
-struct GunzipError: Error {
+internal struct GunzipError: Error {
     var localizedDescription = "Error gunzipping"
 }
-struct GZipError: Error {
+internal struct GZipError: Error {
     var localizedDescription = "Error gzipping"
 }
 
-actor CompactStorageFile {
+internal actor CompactStorageFile {
     private let manager = FileManager.default
     private let folder: URL
     
@@ -77,7 +77,7 @@ actor CompactStorageFile {
     }
 }
 
-actor StorageFile {
+internal actor StorageFile {
     private let manager = FileManager.default
     private let folder: URL
     private var currentFile: URL

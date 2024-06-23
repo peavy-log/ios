@@ -23,7 +23,7 @@ public class Peavy {
     internal let logger: Logger
     private let storage: Storage
 
-    static func setup(_ options: PeavyOptions) {
+    public static func setup(_ options: PeavyOptions) {
         _instance = try? Peavy(options)
     }
 }

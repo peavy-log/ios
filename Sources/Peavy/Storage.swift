@@ -1,6 +1,6 @@
 import Foundation
 
-actor Buffer {
+internal actor Buffer {
     private var buffer: [LogEntry] = []
     
     func add(_ entry: LogEntry) {
