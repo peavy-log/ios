@@ -7,6 +7,8 @@ public class Peavy {
         self.options = options
         self.storage = try Storage()
         self.logger = Logger(storage)
+        
+        Debug.log("Peavy initialised")
     }
     
     private static var _instance: Peavy?

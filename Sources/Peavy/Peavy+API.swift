@@ -12,7 +12,7 @@ extension Peavy {
     }
 
     public static func t(_ message: @autoclosure () -> String, _ error: Error? = nil) {
-        if instance.options.logLevel >= .trace {
+        if instance.options.logLevel <= .trace {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
                 level: .trace,
@@ -23,7 +23,7 @@ extension Peavy {
     }
     
     public static func d(_ message: @autoclosure () -> String, _ error: Error? = nil) {
-        if instance.options.logLevel >= .debug {
+        if instance.options.logLevel <= .debug {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
                 level: .debug,
@@ -34,7 +34,7 @@ extension Peavy {
     }
     
     public static func i(_ message: @autoclosure () -> String, _ error: Error? = nil) {
-        if instance.options.logLevel >= .info {
+        if instance.options.logLevel <= .info {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
                 level: .info,
@@ -45,7 +45,7 @@ extension Peavy {
     }
     
     public static func w(_ message: @autoclosure () -> String, _ error: Error? = nil) {
-        if instance.options.logLevel >= .warning {
+        if instance.options.logLevel <= .warning {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
                 level: .warning,
@@ -56,7 +56,7 @@ extension Peavy {
     }
     
     public static func e(_ message: @autoclosure () -> String, _ error: Error? = nil) {
-        if instance.options.logLevel >= .error {
+        if instance.options.logLevel <= .error {
             instance.logger.log(LogEntry(
                 timestamp: Date(),
                 level: .error,
