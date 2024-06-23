@@ -21,6 +21,9 @@ internal actor CompactStorageFile {
                 create: true
             )
             folder = caches.appendingPathComponent(".peavy")
+            if !manager.fileExists(atPath: folder.path) {
+                try manager.createDirectory(at: folder, withIntermediateDirectories: true)
+            }
         } catch {
             NSLog("Error initialising Peavy storage: \(error.localizedDescription)")
             throw error
@@ -91,6 +94,10 @@ internal actor StorageFile {
                 create: true
             )
             folder = caches.appendingPathComponent(".peavy")
+            if !manager.fileExists(atPath: folder.path) {
+                try manager.createDirectory(at: folder, withIntermediateDirectories: true)
+            }
+            
             currentFile = folder.appendingPathComponent("current")
         } catch {
             NSLog("Error initialising Peavy storage: \(error.localizedDescription)")

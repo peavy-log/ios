@@ -39,7 +39,7 @@ internal class Storage {
         Task(priority: .background) {
             while (true) {
                 do {
-                    try await Task.sleep(nanoseconds: 3 * 10^9 )
+                    try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
                     try await flush()
                 } catch {
                     Debug.warn("\(error.localizedDescription)")
@@ -52,7 +52,7 @@ internal class Storage {
         Task(priority: .background) {
             while (true) {
                 do {
-                    try await Task.sleep(nanoseconds: 30 * 10^9 )
+                    try await Task.sleep(nanoseconds: 30 * 1_000_000_000)
                     try await compact()
                 } catch {
                     Debug.warn("\(error.localizedDescription)")
