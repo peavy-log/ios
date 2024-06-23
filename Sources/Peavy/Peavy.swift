@@ -1,4 +1,6 @@
 import Foundation
+import CrashReporter
+
 
 public class Peavy {
     private init(_ options: PeavyOptions) throws {
@@ -7,6 +9,8 @@ public class Peavy {
         self.options = options
         self.storage = try Storage()
         self.logger = Logger(storage)
+        
+        setupCrashReporting()
         
         Debug.log("Peavy initialised")
     }
@@ -26,6 +30,7 @@ public class Peavy {
 
     internal let logger: Logger
     private let storage: Storage
+    internal var crashReporter: PLCrashReporter?
 
     public static func setup(_ options: PeavyOptions) {
         _instance = try? Peavy(options)

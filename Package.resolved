@@ -1,5 +1,5 @@
 {
-  "originHash" : "e2a95d707ca61ee35ee850c8d5d4c15983d8d754c106f4e5c9457e6e96f05d9e",
+  "originHash" : "8f5431893fbc94d5ec36e9bf1853744204f6816053985e69e86d49e8153b7fe6",
   "pins" : [
     {
       "identity" : "datacompression",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "5ab15951321b08b74511601cbd0497667649d70b",
         "version" : "3.8.0"
+      }
+    },
+    {
+      "identity" : "plcrashreporter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/microsoft/plcrashreporter",
+      "state" : {
+        "revision" : "6752f71de206f6a53fa6a758c3660fd9a7fe7527",
+        "version" : "1.11.2"
       }
     }
   ],
