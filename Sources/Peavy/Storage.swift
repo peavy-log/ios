@@ -46,27 +46,27 @@ internal class Storage {
     
     private func flusher() {
         Task(priority: .background) {
-            while (true) {
+            repeat {
                 do {
                     try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
                     try await flush()
                 } catch {
                     Debug.warn("\(error.localizedDescription)")
                 }
-            }
+            } while !Task.isCancelled
         }
     }
     
     private func compacter() {
         Task(priority: .background) {
-            while (true) {
+            repeat {
                 do {
                     try await Task.sleep(nanoseconds: 30 * 1_000_000_000)
                     try await compact()
                 } catch {
                     Debug.warn("\(error.localizedDescription)")
                 }
-            }
+            } while !Task.isCancelled
         }
     }
     

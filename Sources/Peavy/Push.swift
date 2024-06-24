@@ -15,14 +15,14 @@ internal class Push {
     
     private func pusher() {
         Task(priority: .background) {
-            while (true) {
+            repeat {
                 do {
                     try await Task.sleep(nanoseconds: UInt64(Peavy.options.pushInterval.rounded()) * 1_000_000_000)
                     try await push()
                 } catch {
                     Debug.warn("\(error.localizedDescription)")
                 }
-            }
+            } while !Task.isCancelled
         }
     }
     
