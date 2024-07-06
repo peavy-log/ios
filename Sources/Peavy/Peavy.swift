@@ -1,6 +1,7 @@
 import Foundation
 import CrashReporter
 
+internal class InitializationError: Error {}
 
 public class Peavy {
     private init(_ options: PeavyOptions) throws {
@@ -26,7 +27,12 @@ public class Peavy {
     
     internal let options: PeavyOptions
     internal static var options: PeavyOptions {
-        instance.options
+        get throws {
+            if _instance == nil {
+                throw InitializationError()
+            }
+            return instance.options
+        }
     }
 
     internal let logger: Logger

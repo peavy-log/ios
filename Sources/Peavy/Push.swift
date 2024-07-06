@@ -44,7 +44,7 @@ internal class Push {
     
     private func pushFile(_ url: URL) async throws {
         Debug.log("Pushing file \(url.lastPathComponent)")
-        var req = URLRequest(url: Peavy.options.endpoint,
+        var req = URLRequest(url: try Peavy.options.endpoint,
                              cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
                              timeoutInterval: 30)
         req.httpMethod = "POST"

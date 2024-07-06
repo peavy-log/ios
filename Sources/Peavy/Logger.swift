@@ -32,7 +32,7 @@ internal class Logger {
     }
     
     func log(_ entry: LogEntry) {
-        if Peavy.options.printToStdout {
+        if let print = try? Peavy.options.printToStdout, print {
             NSLog(entry.message)
         }
         
