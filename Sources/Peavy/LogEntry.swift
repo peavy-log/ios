@@ -26,7 +26,7 @@ internal struct LogEntry {
         ].merging(json) { old, _ in old }
 
         if let error {
-            json["error"] = String(describing: error)
+            json["error"] = "\(error)"
         }
 
         return try JSONSerialization.data(withJSONObject: json)
