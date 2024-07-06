@@ -17,8 +17,9 @@ internal struct LogEntry {
             message = level.stringValue
         }
 
+        var timeFormatter = Date.ISO8601FormatStyle(includingFractionalSeconds: true)
         var json: [String: Any] = [
-            "timestamp": timestamp.formatted(.iso8601.time(includingFractionalSeconds: true)),
+            "timestamp": timestamp.formatted(timeFormatter),
             "severity": level.stringValue,
             "message": message,
             "peavy/labels": labels,
