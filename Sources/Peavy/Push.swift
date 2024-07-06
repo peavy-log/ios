@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 internal struct PushError: Error {
     var localizedDescription = "Error pushing file"
@@ -9,6 +10,12 @@ internal class Push {
     
     init(_ storage: Storage) {
         self.storage = storage
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didEnterBackground),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
+
         
         pusher()
     }
@@ -23,6 +30,17 @@ internal class Push {
                     Debug.warn("\(error.localizedDescription)")
                 }
             } while !Task.isCancelled
+        }
+    }
+    
+    @objc private func didEnterBackground() {
+        Debug.log("didEnterBackground, will push")
+        Task(priority: .utility) {
+            do {
+                try await push()
+            } catch {
+                Debug.warn("\(error.localizedDescription)")
+            }
         }
     }
     
