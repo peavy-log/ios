@@ -9,6 +9,7 @@ internal struct LogEntry {
     let error: Error?
 
     var labels: Labels = [:]
+    var json: Labels = [:]
 
     internal func toJson() throws -> Data {
         var message = message
@@ -21,7 +22,8 @@ internal struct LogEntry {
             "severity": level.stringValue,
             "message": message,
             "peavy/labels": labels,
-        ]
+        ].merging(json) { old, _ in old }
+
         if let error {
             json["error"] = error.localizedDescription
         }
