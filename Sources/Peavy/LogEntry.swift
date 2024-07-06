@@ -18,7 +18,7 @@ internal struct LogEntry {
         }
 
         var json: [String: Any] = [
-            "timestamp": timestamp.formatted(.iso8601),
+            "timestamp": timestamp.formatted(.iso8601.time(includingFractionalSeconds: true)),
             "severity": level.stringValue,
             "message": message,
             "peavy/labels": labels,
