@@ -1,10 +1,10 @@
 import Foundation
 
 public struct PeavyTrace {
-    let id: String
-    let span: String
-    let full: String
-    let headers: [String: String]
+    public let id: String
+    public let span: String
+    public let full: String
+    public let headers: [String: String]
 }
 
 public protocol PeavyTracing {
