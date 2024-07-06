@@ -40,7 +40,7 @@ public class PeavyGoogleTracing: PeavyW3CTracing {
             full: trace.full,
             headers: trace.headers.merging([
                 "x-request-id": trace.id,
-                "x-cloud-trace-context": "\(trace.id)0;o=1"
+                "x-cloud-trace-context": "\(trace.id)/0;o=1"
             ]) { $1 }
         )
     }
