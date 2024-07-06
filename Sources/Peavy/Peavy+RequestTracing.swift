@@ -19,12 +19,6 @@ extension Peavy {
 
     /// Logs an HTTP trace to Peavy
     public static func logRequest(_ trace: PeavyTrace, url: URL?, method: String?, extra: Labels = [:]) {
-        let http: Labels = [
-            "side": "request",
-            "url": url?.absoluteString ?? "",
-            "method": method ?? "",
-        ].merging(extra) { $1 }
-
         instance.logger.log(LogEntry(
             timestamp: Date(),
             level: .info,
@@ -33,7 +27,11 @@ extension Peavy {
             json: [
                 "peavy/traceId": trace.id,
                 "peavy/spanId": trace.span,
-                "peavy/http": http as! Codable
+                "peavy/http": [
+                    "side": "request",
+                    "url": url?.absoluteString ?? "",
+                    "method": method ?? "",
+                ].merging(extra) { $1 }
             ]
         ))
     }

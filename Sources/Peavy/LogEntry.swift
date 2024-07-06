@@ -1,6 +1,6 @@
 import Foundation
 
-public typealias Labels = [String: Codable]
+public typealias Labels = [String: Any]
 
 internal struct LogEntry {
     let timestamp: Date
