@@ -37,6 +37,7 @@ internal class Storage {
     
     func rollCurrent() async {
         Debug.log("Rolling current")
+        try? await flush()
         await file.endCurrent(to: compactFile)
     }
     
