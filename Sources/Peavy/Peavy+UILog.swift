@@ -18,6 +18,11 @@ internal extension UIControl {
             if let segmented = self as? UISegmentedControl {
               let selected = segmented.titleForSegment(at: segmented.selectedSegmentIndex)
               label = label ?? selected
+            } else if let switcher = self as? UISwitch {
+                label = label ?? switcher.title
+                if switcher.isOn {
+                    selected = " (selected=\(switcher.isOn))"
+                }
             } else if let textField = self as? UITextField {
               label = label ?? textField.placeholder
             } else if self.isSelected {
@@ -25,6 +30,17 @@ internal extension UIControl {
             }
 
             Peavy.i("Action: \(to):\(action.description) from \(from) (\(label ?? "<no label>"))\(selected)")
+        }
+    }
+}
+
+internal extension UIAlertAction {
+    @objc dynamic class func peavyInit(title: String?,
+                                       style: UIAlertAction.Style,
+                                       handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
+        return peavyInit(title: title, style: style) { a in
+            Peavy.i("Action: \(a.style) \(a.title ?? "<no title>")")
+            handler?(a)
         }
     }
 }
@@ -56,6 +72,11 @@ let uiSetup: Void = {
     let curDidAppear = class_getInstanceMethod(uiViewControllerClass, #selector(uiViewControllerClass.viewDidAppear(_:)))
     let peavyDidAppear = class_getInstanceMethod(uiViewControllerClass, #selector(uiViewControllerClass.peavyDidAppear(_:)))
     method_exchangeImplementations(curDidAppear!, peavyDidAppear!)
+    
+    let alertActionClass = UIAlertAction.self
+    let curInit = class_getClassMethod(alertActionClass, #selector(UIAlertAction.init(title:style:handler:)))
+    let peavyInit = class_getClassMethod(alertActionClass, #selector(UIAlertAction.peavyInit(title:style:handler:)))
+    method_exchangeImplementations(curInit!, peavyInit!)
 }()
 
 internal extension Peavy {
