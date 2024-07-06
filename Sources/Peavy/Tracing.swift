@@ -13,6 +13,8 @@ public protocol PeavyTracing {
 }
 
 public class PeavyW3CTracing: PeavyTracing {
+    public init() {}
+    
     public func newTrace() -> PeavyTrace { newTrace("") }
     public func newTrace(_ spanId: String) -> PeavyTrace {
         let traceId = UUID().uuidString.lowercased().replacingOccurrences(of: "-", with: "")
