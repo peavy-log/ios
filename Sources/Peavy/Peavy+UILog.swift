@@ -22,6 +22,9 @@ internal extension UIViewController {
         Task {
             let from = Mirror(reflecting: self).subjectType
             var line = "UIViewController Appeared: \(from)"
+            if let title = self.title {
+                line += " (\(title))"
+            }
             if let uiHosting = self as? UIHostingController<AnyView> {
                 line += ": \(String(describing: uiHosting.rootView))"
             }
