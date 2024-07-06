@@ -11,7 +11,20 @@ internal extension UIControl {
             guard let target else { return }
             let to = Mirror(reflecting: target).subjectType
             let from = Mirror(reflecting: self).subjectType
-            Peavy.i("Action: \(to):\(action.description) from \(from) (\(self.accessibilityLabel ?? "<no label>"))")
+
+            var label = self.accessibilityIdentifier ?? self.accessibilityLabel
+            var selected = ""
+
+            if let segmented = self as? UISegmentedControl {
+              let selected = segmented.titleForSegment(at: segmented.selectedSegmentIndex)
+              label = label ?? selected
+            } else if let textField = self as? UITextField {
+              label = label ?? textField.placeholder
+            } else if self.isSelected {
+              selected = " (selected=true)"
+            }
+
+            Peavy.i("Action: \(to):\(action.description) from \(from) (\(label ?? "<no label>"))\(selected)")
         }
     }
 }
