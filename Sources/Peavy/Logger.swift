@@ -4,7 +4,7 @@ import UIKit
 internal class Logger {
     private let storage: Storage
 
-    internal var meta: Labels = [:]
+    private var meta: Labels = [:]
 
     private lazy var labels: Labels = {
         var dict: Labels = [
@@ -29,8 +29,22 @@ internal class Logger {
 
     init(_ storage: Storage) {
         self.storage = storage
+
+        if let defaultsMeta = UserDefaults.standard.dictionary(forKey: "__peavy_meta") {
+            self.meta = defaultsMeta
+        }
     }
-    
+
+    func addMeta(_ meta: Labels) {
+        self.meta.merge(meta, uniquingKeysWith: { $1 })
+        UserDefaults.standard.set(self.meta, forKey: "__peavy_meta")
+    }
+
+    func clearMeta() {
+        self.meta.removeAll()
+        UserDefaults.standard.removeObject(forKey: "__peavy_meta")
+    }
+
     func log(_ entry: LogEntry) {
         if let print = try? Peavy.options.printToStdout, print {
             NSLog(entry.message)

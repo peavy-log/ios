@@ -2,12 +2,12 @@ import Foundation
 
 extension Peavy {
     public static func setMeta(_ map: Labels) {
-        instance.logger.meta.merge(map, uniquingKeysWith: { $1 })
+        instance.logger.addMeta(map)
         Debug.log("Updated meta with \(map)")
     }
     
     public static func clearMeta() {
-        instance.logger.meta.removeAll()
+        instance.logger.clearMeta()
         Debug.log("Cleared all meta")
     }
 
