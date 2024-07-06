@@ -13,8 +13,12 @@ public struct PeavyOptions {
     ///
     ///Default: true
     let enableCrashReporting: Bool
-    /// How often to push logs to remote.
     /// Logs are cached locally on device, and sent once every pushInterval.
+    /// Whether or not to enable automatic ui logging. Logs button presses and view controller appearances
+    ///
+    /// Default: true
+    let enableUiLogging: Bool
+    /// How often to push logs to remote.
     ///
     /// Default: 30 seconds
     let pushInterval: TimeInterval
@@ -35,6 +39,7 @@ public struct PeavyOptions {
         endpoint: URL,
         logLevel: LogLevel = .info,
         enableCrashReporting: Bool = true,
+        enableUiLogging: Bool = true,
         pushInterval: TimeInterval = 30,
         printToStdout: Bool = false,
         debug: Bool = false
@@ -42,6 +47,7 @@ public struct PeavyOptions {
         self.endpoint = endpoint
         self.logLevel = logLevel
         self.enableCrashReporting = enableCrashReporting
+        self.enableUiLogging = enableUiLogging
         self.pushInterval = pushInterval
         self.printToStdout = printToStdout
         self.debug = debug

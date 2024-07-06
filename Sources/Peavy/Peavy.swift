@@ -13,6 +13,7 @@ public class Peavy {
         self.push = Push(storage)
 
         setupCrashReporting()
+        setupUiLogging()
         
         Debug.log("Peavy initialised")
     }
