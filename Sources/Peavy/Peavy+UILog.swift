@@ -37,16 +37,15 @@ internal extension UIAlertAction {
                                        style: UIAlertAction.Style,
                                        handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertAction {
         return peavyInit(title: title, style: style) { a in
-            Task {
-                var style: String = ""
-                switch a.style {
-                case .default: style = "default"
-                case .cancel: style = "cancel"
-                case .destructive: style = "destructive"
-                default: style = "\(a.style.rawValue)"
-                }
-                Peavy.i("Action: \(style) \(a.title ?? "<no title>")")
+            var style: String = ""
+            switch a.style {
+            case .default: style = "default"
+            case .cancel: style = "cancel"
+            case .destructive: style = "destructive"
+            default: style = "\(a.style.rawValue)"
             }
+
+            Peavy.i("Action: \(style) \(a.title ?? "<no title>")")
             handler?(a)
         }
     }
