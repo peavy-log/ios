@@ -20,9 +20,7 @@ internal extension UIControl {
               label = label ?? selected
             } else if let switcher = self as? UISwitch {
                 label = label ?? switcher.title
-                if switcher.isOn {
-                    selected = " (selected=\(switcher.isOn))"
-                }
+                selected = " (selected=\(switcher.isOn))"
             } else if let textField = self as? UITextField {
               label = label ?? textField.placeholder
             } else if self.isSelected {
