@@ -49,7 +49,7 @@ internal actor CompactStorageFile {
             let files = try manager.contentsOfDirectory(at: folder, includingPropertiesForKeys: nil)
             return files.filter { $0.lastPathComponent.starts(with: "c-") }
         } catch {
-            Debug.warn("\(error.localizedDescription)")
+            Debug.warn("Failed to list compact files: \(error.localizedDescription)")
             return []
         }
     }
@@ -71,7 +71,7 @@ internal actor CompactStorageFile {
             Debug.log("Combined data, orig size: \(combinedData.count)")
             try writeRolled(combinedData)
         } catch {
-            Debug.warn("\(error.localizedDescription)")
+            Debug.warn("Failed to combine files: \(error.localizedDescription)")
         }
     }
     
@@ -121,7 +121,7 @@ internal actor StorageFile {
             let attrs = try manager.attributesOfItem(atPath: current().path)
             return attrs[FileAttributeKey.size] as! UInt64
         } catch {
-            Debug.warn("\(error.localizedDescription)")
+            Debug.warn("Failed to get current size: \(error.localizedDescription)")
             return 0
         }
     }
@@ -140,7 +140,7 @@ internal actor StorageFile {
             
             try handle.synchronize()
         } catch {
-            Debug.warn("\(error.localizedDescription)")
+            Debug.warn("Failed to write entries: \(error.localizedDescription)")
         }
     }
     
@@ -152,7 +152,7 @@ internal actor StorageFile {
             try await to.writeRolled(data)
             try manager.removeItem(at: current())
         } catch {
-            Debug.warn("\(error.localizedDescription)")
+            Debug.warn("Failed to roll current: \(error.localizedDescription)")
         }
     }
 }

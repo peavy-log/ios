@@ -40,6 +40,10 @@ public class Peavy {
     internal let push: Push
     private let storage: Storage
     internal var crashReporter: PLCrashReporter?
+    
+    static var isSetup: Bool {
+        return _instance != nil
+    }
 
     public static func setup(_ options: PeavyOptions) {
         _instance = try? Peavy(options)

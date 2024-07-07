@@ -52,7 +52,7 @@ internal class Storage {
                     try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
                     try await flush()
                 } catch {
-                    Debug.warn("\(error.localizedDescription)")
+                    Debug.warn("Failed to flush: \(error.localizedDescription)")
                 }
             } while !Task.isCancelled
         }
@@ -65,7 +65,7 @@ internal class Storage {
                     try await Task.sleep(nanoseconds: 30 * 1_000_000_000)
                     try await compact()
                 } catch {
-                    Debug.warn("\(error.localizedDescription)")
+                    Debug.warn("Failed to compact: \(error.localizedDescription)")
                 }
             } while !Task.isCancelled
         }

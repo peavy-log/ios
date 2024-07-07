@@ -20,6 +20,25 @@ internal class Push {
         pusher()
     }
     
+    func direct(_ message: Data) async throws {
+        Debug.log("Pushing direct")
+        var req = URLRequest(url: try Peavy.options.endpoint,
+                             cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
+                             timeoutInterval: 30)
+        req.httpMethod = "POST"
+        req.setValue("application/ndjson", forHTTPHeaderField: "Content-Type")
+        let (data, resp) = try await URLSession.shared.upload(for: req, from: message)
+        
+        guard let response = resp as? HTTPURLResponse else {
+            throw PushError()
+        }
+        guard response.statusCode < 400 else {
+            let body = String(data: data, encoding: .utf8) ?? "<no body>"
+            throw PushError(localizedDescription: "Push error response: \(response.statusCode)\n\(body)")
+        }
+        Debug.log("Pushed direct")
+    }
+    
     private func pusher() {
         Task(priority: .background) {
             repeat {
@@ -27,7 +46,7 @@ internal class Push {
                     try await Task.sleep(nanoseconds: UInt64(Peavy.options.pushInterval.rounded()) * 1_000_000_000)
                     try await push()
                 } catch {
-                    Debug.warn("\(error.localizedDescription)")
+                    Debug.warn("Pusher failed to push: \(error.localizedDescription)")
                 }
             } while !Task.isCancelled
         }
@@ -39,7 +58,7 @@ internal class Push {
             do {
                 try await push()
             } catch {
-                Debug.warn("\(error.localizedDescription)")
+                Debug.warn("Background failed to push: \(error.localizedDescription)")
             }
         }
     }
@@ -53,7 +72,7 @@ internal class Push {
                 try FileManager.default.removeItem(at: fileUrl)
                 errorCount = 0
             } catch {
-                Debug.warn("\(error.localizedDescription)")
+                Debug.warn("Failed to push file: \(error.localizedDescription)")
                 errorCount += 1
             }
             return errorCount < 3

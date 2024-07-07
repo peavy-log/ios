@@ -51,11 +51,14 @@ internal class Logger {
         }
         
         Task(priority: .background) {
-            var entry = entry
-            entry.labels.merge(labels, uniquingKeysWith: { $1 })
-            entry.labels.merge(meta, uniquingKeysWith: { $1 })
-            
-            await storage.storeEntry(entry)
+            await storage.storeEntry(build(entry))
         }
+    }
+
+    func build(_ entry: LogEntry) -> LogEntry {
+        var entry = entry
+        entry.labels.merge(labels, uniquingKeysWith: { $1 })
+        entry.labels.merge(meta, uniquingKeysWith: { $1 })
+        return entry
     }
 }
