@@ -26,6 +26,7 @@ internal class Push {
                              cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
                              timeoutInterval: 30)
         req.httpMethod = "POST"
+        req.setValue("true", forHTTPHeaderField: "Peavy-Log")
         req.setValue("application/ndjson", forHTTPHeaderField: "Content-Type")
         let (data, resp) = try await URLSession.shared.upload(for: req, from: message)
         
@@ -85,6 +86,7 @@ internal class Push {
                              cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
                              timeoutInterval: 30)
         req.httpMethod = "POST"
+        req.setValue("true", forHTTPHeaderField: "Peavy-Log")
         req.setValue("application/ndjson", forHTTPHeaderField: "Content-Type")
         req.setValue("gzip", forHTTPHeaderField: "Content-Encoding")
         let (data, resp) = try await URLSession.shared.upload(for: req, fromFile: url)
