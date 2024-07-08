@@ -30,14 +30,17 @@ internal class Logger {
     init(_ storage: Storage) {
         self.storage = storage
 
-        if let defaultsMeta = UserDefaults.standard.dictionary(forKey: "__peavy_meta") {
+        if let defaultsData = UserDefaults.standard.data(forKey: "__peavy_meta"),
+           let defaultsMeta = try? JSONSerialization.jsonObject(with: defaultsData) as? Labels {
             self.meta = defaultsMeta
         }
     }
 
     func addMeta(_ meta: Labels) {
         self.meta.merge(meta, uniquingKeysWith: { $1 })
-        UserDefaults.standard.set(self.meta, forKey: "__peavy_meta")
+        if let data = try? JSONSerialization.data(withJSONObject: self.meta) {
+            UserDefaults.standard.set(self.meta, forKey: "__peavy_meta")
+        }
     }
 
     func clearMeta() {
