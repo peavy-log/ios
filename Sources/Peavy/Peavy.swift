@@ -26,7 +26,7 @@ public class Peavy {
         return _instance!
     }
     
-    internal let options: PeavyOptions
+    internal var options: PeavyOptions
     internal static var options: PeavyOptions {
         get throws {
             if _instance == nil {

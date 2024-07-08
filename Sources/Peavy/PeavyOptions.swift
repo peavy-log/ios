@@ -4,11 +4,11 @@ import Foundation
 public struct PeavyOptions {
     /// The remote endpoint to push logs to.
     /// Should be a full URL.
-    let endpoint: URL
+    var endpoint: URL
     /// Minimum log level to process.
     ///
     /// Default: LogLevel.Info
-    let logLevel: LogLevel
+    var logLevel: LogLevel
     /// Whether or not to enable the automatic crash detection and logging.
     ///
     ///Default: true
@@ -21,7 +21,7 @@ public struct PeavyOptions {
     /// How often to push logs to remote.
     ///
     /// Default: 30 seconds
-    let pushInterval: TimeInterval
+    var pushInterval: TimeInterval
     /// Enable Peavy to also print the log line to stdout
     /// (using builtin NSLog)
     ///

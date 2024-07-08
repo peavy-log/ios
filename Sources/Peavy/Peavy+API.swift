@@ -65,4 +65,21 @@ extension Peavy {
             ))
         }
     }
+    
+    public static func setOptions(endpoint: URL? = nil,
+                                  logLevel: LogLevel? = nil,
+                                  pushInterval: TimeInterval? = nil) {
+        guard isSetup else { return }
+        var options = instance.options
+        if let endpoint {
+            options.endpoint = endpoint
+        }
+        if let logLevel {
+            options.logLevel = logLevel
+        }
+        if let pushInterval {
+            options.pushInterval = pushInterval
+        }
+        instance.options = options
+    }
 }
