@@ -48,6 +48,7 @@ internal class Push {
                     try await push()
                 } catch {
                     Debug.warn("Pusher failed to push: \(error.localizedDescription)")
+                    try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
                 }
             } while !Task.isCancelled
         }
