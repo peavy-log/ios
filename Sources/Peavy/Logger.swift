@@ -39,7 +39,7 @@ internal class Logger {
     func addMeta(_ meta: Labels) {
         self.meta.merge(meta, uniquingKeysWith: { $1 })
         if let data = try? JSONSerialization.data(withJSONObject: self.meta) {
-            UserDefaults.standard.set(self.meta, forKey: "__peavy_meta")
+            UserDefaults.standard.set(data, forKey: "__peavy_meta")
         }
     }
 
