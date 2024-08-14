@@ -65,7 +65,9 @@ internal actor CompactStorageFile {
                 guard let decompressed = fileData.gunzip() else {
                     throw GunzipError()
                 }
-                combinedData.append(decompressed)
+                if decompressed.count > 0 {
+                    combinedData.append(decompressed)
+                }
             }
             
             Debug.log("Combined data, orig size: \(combinedData.count)")

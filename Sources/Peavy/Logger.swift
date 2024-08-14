@@ -60,8 +60,12 @@ internal class Logger {
 
     func build(_ entry: LogEntry) -> LogEntry {
         var entry = entry
-        entry.labels.merge(labels, uniquingKeysWith: { $1 })
-        entry.labels.merge(meta, uniquingKeysWith: { $1 })
+        labels.forEach {
+            entry.labels[$0] = $1
+        }
+        meta.forEach {
+            entry.labels[$0] = $1
+        }
         return entry
     }
 }

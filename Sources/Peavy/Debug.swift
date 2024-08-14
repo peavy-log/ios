@@ -3,9 +3,9 @@ import Foundation
 internal class Debug {
     static var enabled: Bool = false
     
-    static func log(_ message: String) {
+    static func log(_ message: @autoclosure () -> String) {
         guard enabled else { return }
-        NSLog("[Peavy] \(message)")
+        NSLog("[Peavy] \(message())")
     }
     
     static func warn(_ message: String) {
