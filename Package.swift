@@ -13,8 +13,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/mw99/DataCompression", .upToNextMajor(from: "3.8.0")),
-        .package(url: "https://github.com/microsoft/plcrashreporter", .upToNextMajor(from: "1.11.2")),
+        .package(url: "https://github.com/mw99/DataCompression", .upToNextMajor(from: "3.9.0")),
+        .package(url: "https://github.com/microsoft/plcrashreporter", .upToNextMajor(from: "1.12.0")),
     ],
     targets: [
         .target(

@@ -6,7 +6,7 @@ internal class Logger {
 
     private var meta: Labels = [:]
 
-    private lazy var labels: Labels = {
+    private lazy var logLabels: Labels = {
         var dict: Labels = [
             "platform": "ios",
             "platform-version": UIDevice.current.systemVersion,
@@ -26,6 +26,19 @@ internal class Logger {
         }
         return dict
     }()
+    
+    private lazy var evLabels: Labels = {
+        var dict: Labels = [
+            "platform": "ios",
+        ]
+        if let id = Bundle.main.bundleIdentifier {
+            dict["app-id"] = id
+        }
+        if let code = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String {
+            dict["app-version-code"] = code
+        }
+        return dict
+    }()
 
     init(_ storage: Storage) {
         self.storage = storage
@@ -34,6 +47,8 @@ internal class Logger {
            let defaultsMeta = try? JSONSerialization.jsonObject(with: defaultsData) as? Labels {
             self.meta = defaultsMeta
         }
+        
+        resetSessionId()
     }
 
     func addMeta(_ meta: Labels) {
@@ -60,12 +75,25 @@ internal class Logger {
 
     func build(_ entry: LogEntry) -> LogEntry {
         var entry = entry
-        labels.forEach {
-            entry.labels[$0] = $1
+        if entry.json["__peavy_type"] as? String == "event" {
+            evLabels.forEach {
+                entry.labels[$0] = $1
+            }
+        } else {
+            logLabels.forEach {
+                entry.labels[$0] = $1
+            }
         }
         meta.forEach {
             entry.labels[$0] = $1
         }
         return entry
+    }
+    
+    internal func resetSessionId() {
+        let id = UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(24)
+        Debug.log("Reset session id to \(id)")
+        logLabels["session-id"] = String(id)
+        evLabels["session-id"] = String(id)
     }
 }

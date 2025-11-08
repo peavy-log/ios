@@ -14,6 +14,7 @@ public class Peavy {
 
         setupCrashReporting()
         setupUiLogging()
+        setupSessionId()
         
         Debug.log("Peavy initialised")
     }
@@ -47,5 +48,7 @@ public class Peavy {
 
     public static func setup(_ options: PeavyOptions) {
         _instance = try? Peavy(options)
+
+        Peavy.sendState()
     }
 }
