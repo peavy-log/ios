@@ -91,7 +91,7 @@ internal class Logger {
     }
     
     internal func resetSessionId() {
-        let id = UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(24)
+        let id = UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(24).lowercased()
         Debug.log("Reset session id to \(id)")
         logLabels["session-id"] = String(id)
         evLabels["session-id"] = String(id)
